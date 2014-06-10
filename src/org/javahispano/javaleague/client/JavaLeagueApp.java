@@ -6,6 +6,7 @@ package org.javahispano.javaleague.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -21,7 +22,6 @@ public class JavaLeagueApp implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		// TODO Auto-generated method stub
-		
+		RootPanel.get().add(ourUiBinder.createAndBindUi(this));
 	}
 }

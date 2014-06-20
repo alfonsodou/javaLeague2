@@ -12,7 +12,5 @@ import com.google.gwt.i18n.client.Messages;
  */
 @DefaultLocale("es")
 public interface HomePageMessages extends Messages {
-	@DefaultMessage("2014 :: framework javaCup es un proyecto opensource con licencia GPL v3")
 	String gpl();
-
 }

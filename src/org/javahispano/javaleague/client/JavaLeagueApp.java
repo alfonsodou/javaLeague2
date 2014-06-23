@@ -50,6 +50,14 @@ public class JavaLeagueApp implements EntryPoint {
 	public void setEventBus(SimpleEventBus eventBus) {
 		this.eventBus = eventBus;
 	}
+	
+	public SimplePanel getHeaderPanel() {
+		return headerPanel;
+	}
+	
+	public SimplePanel getCenterPanel() {
+		return centerPanel;
+	}
 
 	@Override
 	public void onModuleLoad() {
@@ -69,7 +77,7 @@ public class JavaLeagueApp implements EntryPoint {
 		
 		appViewer = new AppController(eventBus);
 		
-		eventBus.fireEvent(new ShowHomeEvent());
+		eventBus.fireEvent(new ShowHomeEvent(null));
 
 		RootPanel.get().add(ourUiBinder.createAndBindUi(this));
 	}

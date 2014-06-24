@@ -13,4 +13,10 @@ import com.google.gwt.i18n.client.Messages;
 @DefaultLocale("es")
 public interface HomePageMessages extends Messages {
 	String gpl();
+	String frameWorkLink();
+	String loginLink();
+	String registerLink();
+	String wikiLink();
+	String spanishLink();
+	String englishLink();
 }

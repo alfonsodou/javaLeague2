@@ -28,7 +28,7 @@ public class JavaLeagueApp implements EntryPoint {
 			.create(JavaLeagueAppUiBinder.class);
 
 	private static JavaLeagueApp singleton;
-	private SimpleEventBus eventBus = new SimpleEventBus();
+	private SimpleEventBus eventBus;
 	private AppController appViewer;
 	
 	@UiField
@@ -75,11 +75,17 @@ public class JavaLeagueApp implements EntryPoint {
 		
 		singleton = this;
 		
-		appViewer = new AppController(eventBus);
-		
-		eventBus.fireEvent(new ShowHomeEvent(null));
-
 		RootPanel.get().add(ourUiBinder.createAndBindUi(this));
+		
+		bind();
+	}
+	
+	private void bind() {
+		eventBus = new SimpleEventBus();
+		appViewer = new AppController(eventBus);
+		appViewer.go();
+		
+		//eventBus.fireEvent(new ShowHomeEvent(null));
 	}
 
 	private String buildStackTrace(Throwable t, String log) {

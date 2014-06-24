@@ -43,6 +43,7 @@ public class AppController implements ValueChangeHandler<String> {
 					userId = event.getUserId();
 					doShowHomePrivate();
 				} else {
+					GWT.log("AppController: No USER!");
 					doShowHome();
 				}
 			}
@@ -58,23 +59,33 @@ public class AppController implements ValueChangeHandler<String> {
 		History.newItem("showHomePrivate");
 	}
 
+	public void go() {
+		if ("".equals(History.getToken())) {
+			History.newItem("showHome");
+		} else {
+			History.fireCurrentHistoryState();
+		}
+	}
+	
 	@Override
 	public void onValueChange(ValueChangeEvent<String> event) {
 		String token = event.getValue();
+		
+		GWT.log("Token: " + token);
 
 		if (token != null) {
 			Presenter presenter = null;
 			if (token.equals("showHome")) {
 				JavaLeagueApp.get().getHeaderPanel().clear();
 				MenuPresenter menuPresenter = new MenuPresenter(eventBus,
-						userAccountService, new MenuView());
+						new MenuView());
 				menuPresenter.go(JavaLeagueApp.get().getHeaderPanel());
 
 				JavaLeagueApp.get().getCenterPanel().clear();
 				ShowHomePresenter showHomePresenter = new ShowHomePresenter(
 						new ShowHomeView());
 				showHomePresenter.go(JavaLeagueApp.get().getCenterPanel());
-				
+
 				return;
 			} else if (token.equals("showHomePrivate")) {
 				return;

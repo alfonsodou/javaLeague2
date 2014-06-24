@@ -1,6 +1,11 @@
 package org.javahispano.javaleague.client.helper;
 
 import org.javahispano.javaleague.client.JavaLeagueApp;
+import org.javahispano.javaleague.client.event.LogoutEvent;
+import org.javahispano.javaleague.client.event.RPCInEvent;
+import org.javahispano.javaleague.client.event.RPCOutEvent;
+import org.javahispano.javaleague.client.resources.constants.JavaLeagueConstants;
+import org.javahispano.javaleague.shared.exception.NotLoggedInException;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.RequestTimeoutException;

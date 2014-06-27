@@ -3,17 +3,15 @@
  */
 package org.javahispano.javaleague.client;
 
-import org.javahispano.javaleague.client.event.ShowHomeEvent;
-
+import com.google.common.eventbus.EventBus;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
-import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.place.shared.Place;
+import com.google.gwt.place.shared.PlaceController;
+import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.place.shared.PlaceHistoryMapper;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -21,72 +19,35 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  */
 public class JavaLeagueApp implements EntryPoint {
-	interface JavaLeagueAppUiBinder extends UiBinder<Widget, JavaLeagueApp> {
-	}
+    private ClientFactory clientFactory = GWT.create(ClientFactory.class);
+    private Place defaultPlace = new ListsPlace();
 
-	private static JavaLeagueAppUiBinder ourUiBinder = GWT
-			.create(JavaLeagueAppUiBinder.class);
+    @Override
+    public void onModuleLoad()
+    {
+            /**
+             * This is the entry point method.
+             */
+            // Create ClientFactory using deferred binding so we can replace with
+            // different
+            // impls in gwt.xml
+            EventBus eventBus = clientFactory.getEventBus();
+            PlaceController placeController = clientFactory.getPlaceController();
+            ListwidgetApp app = clientFactory.getApp();
+            Widget appWidget = app.getAppWidget();
 
-	private static JavaLeagueApp singleton;
-	private SimpleEventBus eventBus;
-	private AppController appViewer;
-	
-	@UiField
-	SimplePanel centerPanel;
-	@UiField
-	SimplePanel headerPanel;
+            // Start PlaceHistoryHandler with our PlaceHistoryMapper
+            PlaceHistoryMapper historyMapper = clientFactory.getHistoryMapper();
+            PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
+            historyHandler.register(placeController, eventBus, defaultPlace);
 
-	/**
-	 * Gets the singleton application instance.
-	 */
-	public static JavaLeagueApp get() {
-		return singleton;
-	}
-	
-	public SimpleEventBus getEventBus() {
-		return eventBus;
-	}
-
-	public void setEventBus(SimpleEventBus eventBus) {
-		this.eventBus = eventBus;
-	}
-	
-	public SimplePanel getHeaderPanel() {
-		return headerPanel;
-	}
-	
-	public SimplePanel getCenterPanel() {
-		return centerPanel;
-	}
-
-	@Override
-	public void onModuleLoad() {
-		GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-
-			@Override
-			public void onUncaughtException(Throwable e) {
-				Window.alert("uncaught: " + e.getMessage());
-				String s = buildStackTrace(e, "RuntimeException:\n");
-				Window.alert(s);
-				e.printStackTrace();
-
-			}
-		});
-		
-		singleton = this;
-		
-		RootPanel.get().add(ourUiBinder.createAndBindUi(this));
-		
-		bind();
-	}
-	
-	private void bind() {
-		eventBus = new SimpleEventBus();
-		appViewer = new AppController(eventBus);
-		appViewer.go();
-		
-		//eventBus.fireEvent(new ShowHomeEvent(null));
-	}
+            RootPanel.get("gwt").add(appWidget);
+            // Goes to place represented on URL or default place
+            historyHandler.handleCurrentHistory();
+            
+            // Hide wait GIF
+            DOM.removeChild(RootPanel.getBodyElement(), DOM.getElementById("loading"));
+    }
 
 	private String buildStackTrace(Throwable t, String log) {
 		// return "disabled";

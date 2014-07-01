@@ -3,6 +3,8 @@
 	<!-- Inherit the core Web Toolkit stuff. -->
 	<inherits name='com.google.gwt.user.User' />
 	<inherits name="com.google.gwt.resources.Resources" />
+	<inherits name="com.google.gwt.activity.Activity" />
+	<inherits name="com.google.gwt.place.Place" />
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->
 	<!-- any one of the following lines. -->
@@ -27,6 +29,19 @@
 	<extend-property name="locale" values="en" />
 	<set-property-fallback name="locale" value="es" />
 
+	<!-- Smart phone detection -->
+	<define-property name="ismobile" values="yes,no" />
+	<property-provider name="ismobile"><![CDATA[ 
+       return (navigator.userAgent.indexOf('iPhone') > -1 || navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('iPad') > -1) ? 'yes' : 
+'no'; 
+    ]]>
+	</property-provider>
+
+	<replace-with
+		class="org.javahispano.javaleague.client.BrowserFactoryMobileImpl">
+		<when-type-is class="org.javahispano.javaleague.client.BrowserFactory" />
+		<when-property-is name="ismobile" value="yes" />
+	</replace-with>
 
 	<!-- Use ClientFactoryImpl by default -->
 	<replace-with class="org.javahispano.javaleague.client.ClientFactoryImpl">
@@ -34,7 +49,7 @@
 	</replace-with>
 
 	<!-- Specify the app entry point class. -->
-	<entry-point class='org.javahispano.javaleague.client.JavaLeagueApp' />
+	<entry-point class='org.javahispano.javaleague.client.JavaLeague' />
 
 	<!-- Specify the paths for translatable code -->
 	<source path='client' />

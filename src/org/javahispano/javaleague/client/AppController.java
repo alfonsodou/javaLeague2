@@ -8,8 +8,8 @@ import org.javahispano.javaleague.client.event.ShowHomeEventHandler;
 import org.javahispano.javaleague.client.presenter.MenuPresenter;
 import org.javahispano.javaleague.client.presenter.Presenter;
 import org.javahispano.javaleague.client.presenter.ShowHomePresenter;
-import org.javahispano.javaleague.client.view.MenuView;
-import org.javahispano.javaleague.client.view.ShowHomeView;
+import org.javahispano.javaleague.client.ui.MenuView;
+import org.javahispano.javaleague.client.ui.ShowHomeView;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -76,7 +76,7 @@ public class AppController implements ValueChangeHandler<String> {
 		if (token != null) {
 			Presenter presenter = null;
 			if (token.equals("showHome")) {
-				JavaLeagueApp.get().getHeaderPanel().clear();
+				/*JavaLeagueApp.get().getHeaderPanel().clear();
 				MenuPresenter menuPresenter = new MenuPresenter(eventBus,
 						new MenuView());
 				menuPresenter.go(JavaLeagueApp.get().getHeaderPanel());
@@ -85,6 +85,7 @@ public class AppController implements ValueChangeHandler<String> {
 				ShowHomePresenter showHomePresenter = new ShowHomePresenter(
 						new ShowHomeView());
 				showHomePresenter.go(JavaLeagueApp.get().getCenterPanel());
+				*/
 
 				return;
 			} else if (token.equals("showHomePrivate")) {

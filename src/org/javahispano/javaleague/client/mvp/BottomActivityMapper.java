@@ -17,7 +17,7 @@ import com.google.gwt.place.shared.Place;
  * @author adou
  * 
  */
-public class CenterActivityMapper implements ActivityMapper {
+public class BottomActivityMapper implements ActivityMapper {
 
 	private ClientFactory clientFactory;
 
@@ -28,7 +28,7 @@ public class CenterActivityMapper implements ActivityMapper {
 	 * @param clientFactory
 	 *            Factory to be passed to activities
 	 */
-	public CenterActivityMapper(ClientFactory clientFactory) {
+	public BottomActivityMapper(ClientFactory clientFactory) {
 		super();
 		this.clientFactory = clientFactory;
 	}

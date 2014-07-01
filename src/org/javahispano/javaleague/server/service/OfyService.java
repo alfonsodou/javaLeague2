@@ -4,7 +4,7 @@
 package org.javahispano.javaleague.server.service;
 
 
-import org.javahispano.javaleague.server.domain.User;
+import org.javahispano.javaleague.domain.AppUser;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
@@ -16,7 +16,7 @@ import com.googlecode.objectify.ObjectifyService;
  */
 public class OfyService {
 	static {
-		factory().register(User.class);
+		factory().register(AppUser.class);
 	}
 
 	public static Objectify ofy() {

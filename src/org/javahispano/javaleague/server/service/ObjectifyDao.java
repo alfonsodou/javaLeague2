@@ -17,11 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.javahispano.javaleague.shared.exception.TooManyResultsException;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 
-import javax.ws.rs.core.Context;
+
 
 /**
  * Generic DAO for use with Objectify
@@ -38,8 +39,6 @@ public class ObjectifyDao<T> {
 
 	protected Class<T> clazz;
 
-	// For Jersey
-	// @Context
 	HttpServletRequest req;
 
 	public ObjectifyDao() {
@@ -62,35 +61,35 @@ public class ObjectifyDao<T> {
 	}
 
 	public void delete(T entity) {
-		ofy().delete(entity);
+		ofy().delete().entity(entity).now();
 	}
 
 	public void deleteKey(Key<T> entityKey) {
-		ofy().delete(entityKey);
+		ofy().delete().key(entityKey).now();
 	}
 
 	public void deleteAll(Iterable<T> entities) {
-		ofy().delete(entities);
+		ofy().delete().entities(entities).now();
 	}
 
 	public void deleteKeys(Iterable<Key<T>> keys) {
-		ofy().delete(keys);
+		ofy().delete().keys(keys).now();
 	}
 
 	public T get(Long id) throws EntityNotFoundException {
-		return ofy().get(this.clazz, id);
+		return ofy().load().type(this.clazz).id(id).now();
 	}
 
 	public T get(Key<T> key) throws EntityNotFoundException {
-		return ofy().get(key);
+		return ofy().load().key(key).now();
 	}
 
 	public Map<Key<T>, T> get(Iterable<Key<T>> keys) {
-		return ofy().get(keys);
+		return ofy().load().keys(keys);
 	}
 
 	public List<T> listAll() {
-		Query<T> q = ofy().query(clazz);
+		Query<T> q = ofy().load().type(clazz);
 		return q.list();
 	}
 
@@ -104,7 +103,7 @@ public class ObjectifyDao<T> {
 	 */
 	public T getByProperty(String propName, Object propValue)
 			throws TooManyResultsException {
-		Query<T> q = ofy().query(clazz);
+		Query<T> q = ofy().load().type(clazz);
 		q.filter(propName, propValue);
 		Iterator<T> fetch = q.limit(2).list().iterator();
 		if (!fetch.hasNext()) {
@@ -119,15 +118,15 @@ public class ObjectifyDao<T> {
 	}
 
 	public List<T> listByProperty(String propName, Object propValue) {
-		Query<T> q = ofy().query(clazz);
+		Query<T> q = ofy().load().type(clazz);
 		q.filter(propName, propValue);
 		return q.list();
 	}
 
 	public List<Key<T>> listKeysByProperty(String propName, Object propValue) {
-		Query<T> q = ofy().query(clazz);
+		Query<T> q = ofy().load().type(clazz);
 		q.filter(propName, propValue);
-		return q.listKeys();
+		return q.keys().list();
 	}
 
 	public T getByExample(T exampleObj) throws TooManyResultsException {
@@ -150,30 +149,29 @@ public class ObjectifyDao<T> {
 	}
 
 	public Key<T> getKey(Long id) {
-		return new Key<T>(this.clazz, id);
+		//return new Key<T>(id);
+		return null;	// ¿?¿?¿?¿?¿?¿?
 	}
 
 	public Key<T> key(T obj) {
-		return ObjectifyService.factory().getKey(obj);
+		return ObjectifyService.factory().allocateId((Class<T>) obj); // ¿?¿?¿?¿?
 	}
 
 	public List<T> listChildren(Object parent) {
-		return ofy().query(clazz).ancestor(parent).list();
+		return ofy().load().type(clazz).ancestor(parent).list();
 	}
 
 	public List<Key<T>> listChildKeys(Object parent) {
-		return ofy().query(clazz).ancestor(parent).listKeys();
+		return ofy().load().type(clazz).ancestor(parent).keys().list();
 	}
 
 	protected Query<T> buildQueryByExample(T exampleObj) {
-		Query<T> q = ofy().query(clazz);
+		Query<T> q = ofy().load().type(clazz);
 
 		// Add all non-null properties to query filter
 		for (Field field : clazz.getDeclaredFields()) {
 			// Ignore transient, embedded, array, and collection properties
 			if (field.isAnnotationPresent(Transient.class)
-					|| (field.isAnnotationPresent(Embedded.class))
-					|| (field.getType().isArray())
 					|| (field.getType().isArray())
 					|| (Collection.class.isAssignableFrom(field.getType()))
 					|| ((field.getModifiers() & BAD_MODIFIERS) != 0))
@@ -200,6 +198,8 @@ public class ObjectifyDao<T> {
 	/*
 	 * Application-specific methods to retrieve items owned by a specific user
 	 */
+	
+	/*
 	public List<T> listAllForUser() {
 		Key<AppUser> userKey = new Key<AppUser>(AppUser.class, getCurrentUser()
 				.getId());
@@ -212,5 +212,5 @@ public class ObjectifyDao<T> {
 				.getAttribute("loggedInUser");
 
 	}
-
+*/
 }

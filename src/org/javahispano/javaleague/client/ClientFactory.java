@@ -3,9 +3,13 @@
  */
 package org.javahispano.javaleague.client;
 
-import com.google.common.eventbus.EventBus;
+import org.javahispano.javaleague.client.ui.ProfileEditView;
+import org.javahispano.javaleague.client.ui.ProfileView;
+
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
+import com.google.web.bindery.event.shared.EventBus;
+
 
 /**
  * @author adou
@@ -13,16 +17,22 @@ import com.google.gwt.place.shared.PlaceHistoryMapper;
  */
 public interface ClientFactory {
     EventBus getEventBus();
+    
+    JavaLeagueApp getApp();
 
     PlaceController getPlaceController();
 
     PlaceHistoryMapper getHistoryMapper();
+    
+	ProfileView getProfileView();
 
-    ListsView getListsView();
+	ProfileEditView getProfileEditView();    
+
+/*    ListsView getListsView();
 
     EditListView getEditListView();
 
     ListwidgetRequestFactory getRequestFactory();
 
-    ListwidgetApp getApp();
+    ListwidgetApp getApp();*/
 }

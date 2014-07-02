@@ -16,10 +16,10 @@
  *   See http://connectrapp.appspot.com/ for a demo, and links to more information 
  *   about this app and the book that it accompanies.
  */
-package org.javahispano.javaleague.client.activity;
+package org.javahispano.javaleague.client.mvp.activity;
 
 import org.javahispano.javaleague.client.ClientFactory;
-import org.javahispano.javaleague.client.place.ProfileEditPlace;
+import org.javahispano.javaleague.client.mvp.place.ProfileEditPlace;
 import org.javahispano.javaleague.client.ui.ProfileEditView;
 
 import com.google.gwt.activity.shared.AbstractActivity;

@@ -1,7 +1,7 @@
-package org.javahispano.javaleague.client.presenter;
+package org.javahispano.javaleague.client.mvp.presenter;
 
 import org.gwtbootstrap3.client.ui.ListItem;
-import org.javahispano.javaleague.client.event.ShowHomeEvent;
+import org.javahispano.javaleague.client.mvp.event.ShowHomeEvent;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

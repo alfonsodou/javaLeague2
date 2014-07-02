@@ -5,7 +5,7 @@ package org.javahispano.javaleague.client.ui;
 
 import org.gwtbootstrap3.client.ui.AnchorListItem;
 import org.gwtbootstrap3.client.ui.NavbarBrand;
-import org.javahispano.javaleague.client.presenter.MenuPresenter;
+import org.javahispano.javaleague.client.mvp.presenter.MenuPresenter;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;

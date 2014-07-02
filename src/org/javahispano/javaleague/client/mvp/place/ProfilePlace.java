@@ -16,7 +16,7 @@
  *   See http://connectrapp.appspot.com/ for a demo, and links to more information 
  *   about this app and the book that it accompanies.
  */
-package org.javahispano.javaleague.client.place;
+package org.javahispano.javaleague.client.mvp.place;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;

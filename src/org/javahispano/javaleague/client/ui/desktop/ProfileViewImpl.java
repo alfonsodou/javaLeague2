@@ -18,7 +18,7 @@
  */
 package org.javahispano.javaleague.client.ui.desktop;
 
-import org.javahispano.javaleague.client.place.ProfileEditPlace;
+import org.javahispano.javaleague.client.mvp.place.ProfileEditPlace;
 import org.javahispano.javaleague.client.ui.ProfileView;
 
 import com.google.gwt.core.client.GWT;

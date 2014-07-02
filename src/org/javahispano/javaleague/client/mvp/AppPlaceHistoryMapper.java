@@ -1,7 +1,7 @@
 package org.javahispano.javaleague.client.mvp;
 
-import org.javahispano.javaleague.client.place.ProfileEditPlace;
-import org.javahispano.javaleague.client.place.ProfilePlace;
+import org.javahispano.javaleague.client.mvp.place.ProfileEditPlace;
+import org.javahispano.javaleague.client.mvp.place.ProfilePlace;
 
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.gwt.place.shared.WithTokenizers;

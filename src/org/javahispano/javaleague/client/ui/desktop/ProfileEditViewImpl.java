@@ -18,7 +18,7 @@
  */
 package org.javahispano.javaleague.client.ui.desktop;
 
-import org.javahispano.javaleague.client.place.ProfilePlace;
+import org.javahispano.javaleague.client.mvp.place.ProfilePlace;
 import org.javahispano.javaleague.client.ui.ProfileEditView;
 import org.javahispano.javaleague.client.ui.ProfileEditView.Presenter;
 

@@ -1,4 +1,4 @@
-package org.javahispano.javaleague.client.presenter;
+package org.javahispano.javaleague.client.mvp.presenter;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;

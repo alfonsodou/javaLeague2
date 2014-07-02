@@ -3,7 +3,7 @@
  */
 package org.javahispano.javaleague.client.ui;
 
-import org.javahispano.javaleague.client.presenter.ShowHomePresenter;
+import org.javahispano.javaleague.client.mvp.presenter.ShowHomePresenter;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;

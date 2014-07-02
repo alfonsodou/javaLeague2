@@ -4,10 +4,10 @@
 package org.javahispano.javaleague.client.mvp;
 
 import org.javahispano.javaleague.client.ClientFactory;
-import org.javahispano.javaleague.client.activity.ProfileActivity;
-import org.javahispano.javaleague.client.activity.ProfileEditActivity;
-import org.javahispano.javaleague.client.place.ProfileEditPlace;
-import org.javahispano.javaleague.client.place.ProfilePlace;
+import org.javahispano.javaleague.client.mvp.activity.ProfileActivity;
+import org.javahispano.javaleague.client.mvp.activity.ProfileEditActivity;
+import org.javahispano.javaleague.client.mvp.place.ProfileEditPlace;
+import org.javahispano.javaleague.client.mvp.place.ProfilePlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;

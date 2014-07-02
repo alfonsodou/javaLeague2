@@ -8,7 +8,7 @@ import org.javahispano.javaleague.client.JavaLeagueApp;
 import org.javahispano.javaleague.client.mvp.BottomActivityMapper;
 import org.javahispano.javaleague.client.mvp.CenterActivityMapper;
 import org.javahispano.javaleague.client.mvp.TopActivityMapper;
-import org.javahispano.javaleague.client.place.ProfilePlace;
+import org.javahispano.javaleague.client.mvp.place.ProfilePlace;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;

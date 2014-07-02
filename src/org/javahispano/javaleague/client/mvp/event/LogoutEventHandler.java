@@ -1,4 +1,4 @@
-package org.javahispano.javaleague.client.event;
+package org.javahispano.javaleague.client.mvp.event;
 
 import com.google.gwt.event.shared.EventHandler;
 

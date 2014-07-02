@@ -3,16 +3,20 @@
  */
 package org.javahispano.javaleague.client;
 
-import org.javahispano.javaleague.client.place.ProfilePlace;
+import org.javahispano.javaleague.client.mvp.place.ProfilePlace;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
 
@@ -20,9 +24,13 @@ import com.google.web.bindery.event.shared.EventBus;
  * @author adou
  * 
  */
-public class JavaLeague implements EntryPoint {
+public class JavaLeague extends ResizeComposite implements EntryPoint {
 	private ClientFactory clientFactory = GWT.create(ClientFactory.class);
 	private Place defaultPlace = new ProfilePlace("Daniel");
+	SimplePanel center = new SimplePanel();
+	SimplePanel top = new SimplePanel();
+	SimplePanel bottom = new SimplePanel();
+	DockLayoutPanel container = new DockLayoutPanel(Unit.PX);
 
 	@Override
 	public void onModuleLoad() {
@@ -39,6 +47,13 @@ public class JavaLeague implements EntryPoint {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
 		historyHandler.register(placeController, eventBus, defaultPlace);
 
+	    container.addNorth(top, 25);
+	    container.add(center);
+	    container.addSouth(bottom, 25);
+	    initWidget(container);
+	    container.setSize("100%","100%");
+	    container.forceLayout();
+	    
 		RootPanel.get().add(appWidget);
 		// Goes to place represented on URL or default place
 		historyHandler.handleCurrentHistory();

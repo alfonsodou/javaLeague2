@@ -4,11 +4,8 @@
 package org.javahispano.javaleague.client;
 
 import org.javahispano.javaleague.client.mvp.AppPlaceHistoryMapper;
-import org.javahispano.javaleague.client.ui.ProfileEditView;
-import org.javahispano.javaleague.client.ui.ProfileView;
-import org.javahispano.javaleague.client.ui.desktop.DesktopApp;
-import org.javahispano.javaleague.client.ui.desktop.ProfileEditViewImpl;
-import org.javahispano.javaleague.client.ui.desktop.ProfileViewImpl;
+import org.javahispano.javaleague.client.mvp.views.WelcomeView;
+import org.javahispano.javaleague.client.mvp.views.uibinder.WelcomeViewImpl;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.PlaceController;
@@ -24,20 +21,13 @@ public class ClientFactoryImpl implements ClientFactory {
 	private final EventBus eventBus = new SimpleEventBus();
 	private final PlaceController placeController = new PlaceController(
 			eventBus);
-	private final ProfileView profileView = new ProfileViewImpl();
-	private final ProfileEditView profileEditView = new ProfileEditViewImpl();
-	private final JavaLeagueApp app = new DesktopApp(this);
 	private final PlaceHistoryMapper historyMapper = GWT
 			.create(AppPlaceHistoryMapper.class);
+	private static WelcomeView welcomeView;
 
 	@Override
 	public EventBus getEventBus() {
 		return eventBus;
-	}
-
-	@Override
-	public ProfileView getProfileView() {
-		return profileView;
 	}
 
 	@Override
@@ -46,17 +36,14 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	@Override
-	public ProfileEditView getProfileEditView() {
-		return profileEditView;
-	}
-
-	@Override
 	public PlaceHistoryMapper getHistoryMapper() {
 		return historyMapper;
 	}
-
+	
 	@Override
-	public JavaLeagueApp getApp() {
-		return app;
-	}
+	public WelcomeView getWelcomeView() {
+		if (welcomeView == null) welcomeView = new WelcomeViewImpl();
+		return welcomeView;
+	}	
+
 }

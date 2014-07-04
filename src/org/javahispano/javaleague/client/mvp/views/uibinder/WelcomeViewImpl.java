@@ -21,18 +21,9 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
 			.create(WelcomeViewUiBinder.class);
 
 	private WelcomePresenter presenter;
-	@UiField
-	Button showPhotos;
 
 	public WelcomeViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
-	}
-
-	@UiHandler("showPhotos")
-	public void showList(ClickEvent event) {
-		if (presenter != null) {
-			presenter.onshowPhotosButtonClicked();
-		}
 	}
 
 	@Override

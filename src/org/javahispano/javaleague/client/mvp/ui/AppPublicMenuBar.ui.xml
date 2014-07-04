@@ -45,7 +45,7 @@
 					</b:AnchorListItem>
 
 					<b:ListDropDown>
-						<b:AnchorButton dataToggle="DROPDOWN" icon="GLOBE">Español
+						<b:AnchorButton ui:field="locale" dataToggle="DROPDOWN" icon="GLOBE">Español
 							(es)</b:AnchorButton>
 						<b:DropDownMenu>
 							<b:AnchorListItem ui:field="localeES">Español (es)</b:AnchorListItem>

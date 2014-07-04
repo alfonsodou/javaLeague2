@@ -28,35 +28,11 @@
 			</g:SimplePanel>
 
 			<g:SimplePanel ui:field="centerPanel" addStyleNames="{style.push}">
-				<g:Button ui:field="showPhotos">
-					<ui:msg>Show Photos</ui:msg>
-				</g:Button>
+				<my:AppWelcome></my:AppWelcome>
 			</g:SimplePanel>
 
 			<g:SimplePanel ui:field="footerPanel">
-				<b:Row>
-					<b:Column size="MD_3">
-						<b.html:Small>
-							<ui:msg key="GPL">2014 :: framework javaCup es un proyecto
-								opensource con licencia GPL v3</ui:msg>
-						</b.html:Small>
-					</b:Column>
-					<b:Column size="MD_1" offset="MD_2">
-						<b.html:Paragraph>
-							<a href="http://www.javahispano.org">
-								<b:Image url="images/logoJavaHispano.png" />
-							</a>
-						</b.html:Paragraph>
-					</b:Column>
-					<b:Column size="MD_1" offset="MD_5">
-						<b.html:Paragraph>
-							<a href="https://github.com/alfonsodou">
-								<b:Icon type="GITHUB" size="TIMES3"></b:Icon>
-							</a>
-						</b.html:Paragraph>
-					</b:Column>
-
-				</b:Row>
+				<my:AppFooter></my:AppFooter>
 			</g:SimplePanel>
 		</b:Container>
 	</g:ScrollPanel>

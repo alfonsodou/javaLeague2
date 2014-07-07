@@ -6,6 +6,7 @@ import org.javahispano.javaleague.client.mvp.presenters.WelcomePresenter;
 import org.javahispano.javaleague.client.mvp.views.WelcomeView;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -18,7 +19,7 @@ public class WelcomeActivity extends AbstractActivity implements WelcomePresente
 		this.clientFactory = clientFactory;
 	}
 
-	public void start(AcceptsOneWidget panel, com.google.gwt.event.shared.EventBus eventBus) {
+	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		welcomeView = clientFactory.getWelcomeView();
 		panel.setWidget(welcomeView.asWidget());
 		bind();		

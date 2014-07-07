@@ -4,7 +4,9 @@
 package org.javahispano.javaleague.client;
 
 import org.javahispano.javaleague.client.mvp.AppPlaceHistoryMapper;
+import org.javahispano.javaleague.client.mvp.views.RegisterView;
 import org.javahispano.javaleague.client.mvp.views.WelcomeView;
+import org.javahispano.javaleague.client.mvp.views.uibinder.RegisterViewImpl;
 import org.javahispano.javaleague.client.mvp.views.uibinder.WelcomeViewImpl;
 
 import com.google.gwt.core.client.GWT;
@@ -24,6 +26,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private final PlaceHistoryMapper historyMapper = GWT
 			.create(AppPlaceHistoryMapper.class);
 	private static WelcomeView welcomeView;
+	private static RegisterView registerView;
 
 	@Override
 	public EventBus getEventBus() {
@@ -44,6 +47,12 @@ public class ClientFactoryImpl implements ClientFactory {
 	public WelcomeView getWelcomeView() {
 		if (welcomeView == null) welcomeView = new WelcomeViewImpl();
 		return welcomeView;
+	}
+
+	@Override
+	public RegisterView getRegisterView() {
+		if (registerView == null) registerView = new RegisterViewImpl();
+		return registerView;
 	}	
 
 }

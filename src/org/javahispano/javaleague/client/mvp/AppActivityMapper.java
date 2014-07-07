@@ -1,7 +1,9 @@
 package org.javahispano.javaleague.client.mvp;
 
 import org.javahispano.javaleague.client.ClientFactory;
+import org.javahispano.javaleague.client.mvp.activities.RegisterActivity;
 import org.javahispano.javaleague.client.mvp.activities.WelcomeActivity;
+import org.javahispano.javaleague.client.mvp.places.RegisterPlace;
 import org.javahispano.javaleague.client.mvp.places.WelcomePlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -20,7 +22,8 @@ public class AppActivityMapper implements ActivityMapper {
 	public Activity getActivity(Place place) {
 		if (place instanceof WelcomePlace)
 			return new WelcomeActivity((WelcomePlace) place, clientFactory);
-		else
-			return null;
+		else if (place instanceof RegisterPlace) 
+			return new RegisterActivity((RegisterPlace) place, clientFactory);
+		else return null;
 	}
 }

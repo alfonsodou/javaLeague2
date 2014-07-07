@@ -1,5 +1,6 @@
 package org.javahispano.javaleague.client.mvp;
 
+import org.javahispano.javaleague.client.mvp.places.RegisterPlace;
 import org.javahispano.javaleague.client.mvp.places.WelcomePlace;
 
 import com.google.gwt.place.shared.PlaceHistoryMapper;
@@ -11,6 +12,6 @@ import com.google.gwt.place.shared.WithTokenizers;
  * annotation or by extending PlaceHistoryMapperWithFactory and creating a
  * separate TokenizerFactory.
  */
-@WithTokenizers({ WelcomePlace.Tokenizer.class })
+@WithTokenizers({ WelcomePlace.Tokenizer.class, RegisterPlace.Tokenizer.class })
 public interface AppPlaceHistoryMapper extends PlaceHistoryMapper {
 }

@@ -3,6 +3,7 @@
  */
 package org.javahispano.javaleague.client;
 
+import org.javahispano.javaleague.client.mvp.views.RegisterView;
 import org.javahispano.javaleague.client.mvp.views.WelcomeView;
 
 import com.google.gwt.place.shared.PlaceController;
@@ -22,6 +23,8 @@ public interface ClientFactory {
     PlaceHistoryMapper getHistoryMapper();
      
     WelcomeView getWelcomeView();
+    
+    RegisterView getRegisterView();
     
 /*    ListsView getListsView();
 

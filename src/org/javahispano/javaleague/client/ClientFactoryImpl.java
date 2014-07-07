@@ -3,7 +3,7 @@
  */
 package org.javahispano.javaleague.client;
 
-import org.javahispano.javaleague.client.mvp.AppPlaceHistoryMapper;
+import org.javahispano.javaleague.client.mvp.AppPlacesHistoryMapper;
 import org.javahispano.javaleague.client.mvp.views.RegisterView;
 import org.javahispano.javaleague.client.mvp.views.WelcomeView;
 import org.javahispano.javaleague.client.mvp.views.uibinder.RegisterViewImpl;
@@ -20,39 +20,38 @@ import com.google.web.bindery.event.shared.SimpleEventBus;
  * 
  */
 public class ClientFactoryImpl implements ClientFactory {
-	private final EventBus eventBus = new SimpleEventBus();
-	private final PlaceController placeController = new PlaceController(
-			eventBus);
-	private final PlaceHistoryMapper historyMapper = GWT
-			.create(AppPlaceHistoryMapper.class);
+	private static EventBus eventBus;
+	private static PlaceController placeController;
+
 	private static WelcomeView welcomeView;
 	private static RegisterView registerView;
 
 	@Override
 	public EventBus getEventBus() {
+		if (eventBus == null)
+			eventBus = new SimpleEventBus();
 		return eventBus;
 	}
 
 	@Override
 	public PlaceController getPlaceController() {
+		if (placeController == null)
+			placeController = new PlaceController(getEventBus());
 		return placeController;
 	}
 
 	@Override
-	public PlaceHistoryMapper getHistoryMapper() {
-		return historyMapper;
-	}
-	
-	@Override
 	public WelcomeView getWelcomeView() {
-		if (welcomeView == null) welcomeView = new WelcomeViewImpl();
+		if (welcomeView == null)
+			welcomeView = new WelcomeViewImpl();
 		return welcomeView;
 	}
 
 	@Override
 	public RegisterView getRegisterView() {
-		if (registerView == null) registerView = new RegisterViewImpl();
+		if (registerView == null)
+			registerView = new RegisterViewImpl();
 		return registerView;
-	}	
+	}
 
 }

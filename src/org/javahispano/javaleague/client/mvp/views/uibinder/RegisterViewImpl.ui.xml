@@ -28,7 +28,11 @@
 			</g:SimplePanel>
 
 			<g:SimplePanel ui:field="centerPanel" addStyleNames="{style.push}">
-				<b:Alert>Registro</b:Alert>
+				<b:Alert>
+					<b.html:Strong>
+						<ui:msg>Registro</ui:msg>
+					</b.html:Strong>
+				</b:Alert>
 			</g:SimplePanel>
 
 			<g:SimplePanel ui:field="footerPanel">

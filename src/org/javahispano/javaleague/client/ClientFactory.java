@@ -7,30 +7,28 @@ import org.javahispano.javaleague.client.mvp.views.RegisterView;
 import org.javahispano.javaleague.client.mvp.views.WelcomeView;
 
 import com.google.gwt.place.shared.PlaceController;
-import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.web.bindery.event.shared.EventBus;
-
 
 /**
  * @author adou
- *
+ * 
  */
 public interface ClientFactory {
-    EventBus getEventBus();
+	public EventBus getEventBus();
 
-    PlaceController getPlaceController();
+	public PlaceController getPlaceController();
 
-    PlaceHistoryMapper getHistoryMapper();
-     
-    WelcomeView getWelcomeView();
-    
-    RegisterView getRegisterView();
-    
-/*    ListsView getListsView();
+	WelcomeView getWelcomeView();
 
-    EditListView getEditListView();
+	RegisterView getRegisterView();
 
-    ListwidgetRequestFactory getRequestFactory();
-
-    ListwidgetApp getApp();*/
+	/*
+	 * ListsView getListsView();
+	 * 
+	 * EditListView getEditListView();
+	 * 
+	 * ListwidgetRequestFactory getRequestFactory();
+	 * 
+	 * ListwidgetApp getApp();
+	 */
 }

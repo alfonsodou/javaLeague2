@@ -29,20 +29,6 @@
 	<extend-property name="locale" values="en" />
 	<set-property-fallback name="locale" value="es" />
 
-	<!-- Smart phone detection -->
-	<define-property name="ismobile" values="yes,no" />
-	<property-provider name="ismobile"><![CDATA[ 
-       return (navigator.userAgent.indexOf('iPhone') > -1 || navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('iPad') > -1) ? 'yes' : 
-'no'; 
-    ]]>
-	</property-provider>
-
-	<replace-with
-		class="org.javahispano.javaleague.client.BrowserFactoryMobileImpl">
-		<when-type-is class="org.javahispano.javaleague.client.BrowserFactory" />
-		<when-property-is name="ismobile" value="yes" />
-	</replace-with>
-
 	<!-- Use ClientFactoryImpl by default -->
 	<replace-with class="org.javahispano.javaleague.client.ClientFactoryImpl">
 		<when-type-is class="org.javahispano.javaleague.client.ClientFactory" />

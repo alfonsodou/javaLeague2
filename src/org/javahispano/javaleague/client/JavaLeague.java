@@ -4,6 +4,7 @@
 package org.javahispano.javaleague.client;
 
 import org.javahispano.javaleague.client.mvp.AppActivityMapper;
+import org.javahispano.javaleague.client.mvp.AppPlacesHistoryMapper;
 import org.javahispano.javaleague.client.mvp.events.AppBusyEvent;
 import org.javahispano.javaleague.client.mvp.events.AppBusyHandler;
 import org.javahispano.javaleague.client.mvp.events.AppFreeEvent;
@@ -15,13 +16,9 @@ import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.place.shared.PlaceHistoryMapper;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.web.bindery.event.shared.EventBus;
@@ -39,7 +36,7 @@ public class JavaLeague implements EntryPoint {
 	public void onModuleLoad() {
 		ClientFactory clientFactory = GWT.create(ClientFactory.class);
 		eventBus = clientFactory.getEventBus();
-		
+
 		PlaceController placeController = clientFactory.getPlaceController();
 
 		ActivityMapper appActivityMapper = new AppActivityMapper(clientFactory);
@@ -48,19 +45,20 @@ public class JavaLeague implements EntryPoint {
 		appActivityManager.setDisplay(appWidget);
 
 		// Start PlaceHistoryHandler with our PlaceHistoryMapper
-		PlaceHistoryMapper historyMapper = clientFactory.getHistoryMapper();
+		AppPlacesHistoryMapper historyMapper = GWT
+				.create(AppPlacesHistoryMapper.class);
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
 				historyMapper);
 		historyHandler.register(placeController, eventBus, defaultPlace);
-		
+
 		RootPanel.get().add(appWidget);
 		// Goes to the place represented on URL else default place
 		historyHandler.handleCurrentHistory();
 
 		bind();
-			    
+
 	}
-	
+
 	private void bind() {
 		// Listen for AppBusy events on the event bus
 		eventBus.addHandler(AppBusyEvent.getType(), new AppBusyHandler() {
@@ -76,7 +74,6 @@ public class JavaLeague implements EntryPoint {
 			}
 		});
 	}
-	
 
 	private String buildStackTrace(Throwable t, String log) {
 		// return "disabled";

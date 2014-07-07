@@ -28,11 +28,7 @@
 			</g:SimplePanel>
 
 			<g:SimplePanel ui:field="centerPanel" addStyleNames="{style.push}">
-				<b:Alert>
-					<b.html:Strong>
-						<ui:msg>Registro</ui:msg>
-					</b.html:Strong>
-				</b:Alert>
+				<my:AppRegisterUser></my:AppRegisterUser>
 			</g:SimplePanel>
 
 			<g:SimplePanel ui:field="footerPanel">
@@ -41,3 +37,4 @@
 		</b:Container>
 	</g:ScrollPanel>
 </ui:UiBinder> 
+

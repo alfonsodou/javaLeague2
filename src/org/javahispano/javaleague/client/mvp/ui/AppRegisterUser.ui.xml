@@ -6,105 +6,107 @@
 	ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
 	ui:generateKeys='com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator'
 	ui:generateLocales='default'>
-	
+
 	<b:Panel>
 		<b:PanelBody>
 			<b:Row>
 				<b:Column size="MD_6">
-					<b:Form ui:field="formRegisterUser" type="HORIZONTAL">
-						<b:Legend>
-							<ui:msg key="caption">Registrar</ui:msg>
-						</b:Legend>
-						<b:FieldSet>
-							<b:FormGroup>
-								<b:FormLabel for="formUserName" addStyleNames="col-lg-2">
-									<ui:msg key="UserName">Nombre</ui:msg>
-								</b:FormLabel>
+					<g:FormPanel ui:field="formPanelRegisterUser" action="/register">
+						<b:Form ui:field="formRegisterUser" type="HORIZONTAL">
+							<b:Legend>
+								<ui:msg key="caption">Registrar</ui:msg>
+							</b:Legend>
+							<b:FieldSet>
+								<b:FormGroup>
+									<b:FormLabel for="formUserName" addStyleNames="col-lg-2">
+										<ui:msg key="UserName">Nombre</ui:msg>
+									</b:FormLabel>
 
-								<g:FlowPanel addStyleNames="col-lg-10">
-									<b:TextBox ui:field="userName" b:id="formUserName"></b:TextBox>
-									<b:Label ui:field="errorUserName" type="DANGER">
-										<ui:msg key="errorUserName">El nombre debe tener al menos 4
-											caracteres</ui:msg>
-									</b:Label>
-								</g:FlowPanel>
+									<g:FlowPanel addStyleNames="col-lg-10">
+										<b:TextBox ui:field="userName" b:id="formUserName"></b:TextBox>
+										<b:Label ui:field="errorUserName" type="DANGER">
+											<ui:msg key="errorUserName">El nombre debe tener al menos 4
+												caracteres</ui:msg>
+										</b:Label>
+									</g:FlowPanel>
 
-							</b:FormGroup>
+								</b:FormGroup>
 
-							<b:FormGroup>
-								<b:FormLabel for="formEmail" addStyleNames="col-lg-2">
-									<ui:msg key="email">Email</ui:msg>
-								</b:FormLabel>
+								<b:FormGroup>
+									<b:FormLabel for="formEmail" addStyleNames="col-lg-2">
+										<ui:msg key="email">Email</ui:msg>
+									</b:FormLabel>
 
-								<g:FlowPanel addStyleNames="col-lg-10">
-									<b:TextBox ui:field="email" b:id="formEmail"></b:TextBox>
-									<b:Label ui:field="errorEmail" type="DANGER">
-										<ui:msg key="errorEmail">Dirección de correo inválida</ui:msg>
-									</b:Label>
-									<b:Label ui:field="errorRegisterEmail" type="DANGER">
-										<ui:msg key="errorRegisterEmail">Dirección de correo ya registrada</ui:msg>
-									</b:Label>
-								</g:FlowPanel>
+									<g:FlowPanel addStyleNames="col-lg-10">
+										<b:TextBox ui:field="email" b:id="formEmail"></b:TextBox>
+										<b:Label ui:field="errorEmail" type="DANGER">
+											<ui:msg key="errorEmail">Dirección de correo inválida</ui:msg>
+										</b:Label>
+										<b:Label ui:field="errorRegisterEmail" type="DANGER">
+											<ui:msg key="errorRegisterEmail">Dirección de correo ya registrada</ui:msg>
+										</b:Label>
+									</g:FlowPanel>
 
-							</b:FormGroup>
+								</b:FormGroup>
 
-							<b:FormGroup>
-								<b:FormLabel for="formTeamName" addStyleNames="col-lg-2">
-									<ui:msg key="TeamName">Nombre del Equipo</ui:msg>
-								</b:FormLabel>
+								<b:FormGroup>
+									<b:FormLabel for="formTeamName" addStyleNames="col-lg-2">
+										<ui:msg key="TeamName">Nombre del Equipo</ui:msg>
+									</b:FormLabel>
 
-								<g:FlowPanel addStyleNames="col-lg-10">
-									<b:TextBox ui:field="teamName" b:id="formTeamName"></b:TextBox>
-									<b:Label ui:field="errorTeamName" type="DANGER">
-										<ui:msg key="errorTeamName">El nombre del equipo no puede estar
-											vacío</ui:msg>
-									</b:Label>
-								</g:FlowPanel>
-							</b:FormGroup>
+									<g:FlowPanel addStyleNames="col-lg-10">
+										<b:TextBox ui:field="teamName" b:id="formTeamName"></b:TextBox>
+										<b:Label ui:field="errorTeamName" type="DANGER">
+											<ui:msg key="errorTeamName">El nombre del equipo no puede estar
+												vacío</ui:msg>
+										</b:Label>
+									</g:FlowPanel>
+								</b:FormGroup>
 
-							<b:FormGroup>
-								<b:FormLabel for="formPassword" addStyleNames="col-lg-2">
-									<ui:msg key="Password">Contraseña</ui:msg>
-								</b:FormLabel>
+								<b:FormGroup>
+									<b:FormLabel for="formPassword" addStyleNames="col-lg-2">
+										<ui:msg key="Password">Contraseña</ui:msg>
+									</b:FormLabel>
 
-								<g:FlowPanel addStyleNames="col-lg-10">
-									<b:Input type="PASSWORD" ui:field="password" b:id="formPassword"></b:Input>
-								</g:FlowPanel>
+									<g:FlowPanel addStyleNames="col-lg-10">
+										<b:Input type="PASSWORD" ui:field="password" b:id="formPassword"></b:Input>
+									</g:FlowPanel>
 
-							</b:FormGroup>
+								</b:FormGroup>
 
-							<b:FormGroup>
-								<b:FormLabel for="formRePassword" addStyleNames="col-lg-2">
-									<ui:msg key="RePassword">Repite la contraseña</ui:msg>
-								</b:FormLabel>
+								<b:FormGroup>
+									<b:FormLabel for="formRePassword" addStyleNames="col-lg-2">
+										<ui:msg key="RePassword">Repite la contraseña</ui:msg>
+									</b:FormLabel>
 
-								<g:FlowPanel addStyleNames="col-lg-10">
-									<b:Input type="PASSWORD" ui:field="rePassword" b:id="formRePassword"></b:Input>
-									<b:Label ui:field="errorPasswordSize" type="DANGER">
-										<ui:msg key="errorPasswordSize">La contraseña debe tener al menos 4
-											caracteres</ui:msg>
-									</b:Label>
+									<g:FlowPanel addStyleNames="col-lg-10">
+										<b:Input type="PASSWORD" ui:field="rePassword" b:id="formRePassword"></b:Input>
+										<b:Label ui:field="errorPasswordSize" type="DANGER">
+											<ui:msg key="errorPasswordSize">La contraseña debe tener al menos 4
+												caracteres</ui:msg>
+										</b:Label>
 
-									<b:Label ui:field="errorPassword" type="DANGER">
-										<ui:msg key="errorPassword">Las contraseñas no coinciden</ui:msg>
-									</b:Label>
-								</g:FlowPanel>
+										<b:Label ui:field="errorPassword" type="DANGER">
+											<ui:msg key="errorPassword">Las contraseñas no coinciden</ui:msg>
+										</b:Label>
+									</g:FlowPanel>
 
-							</b:FormGroup>
+								</b:FormGroup>
 
-							<b:FormGroup>
-								<g:FlowPanel addStyleNames="col-lg-offset-2 col-lg-10">
-									<b:SubmitButton ui:field="registerButton" type="PRIMARY">
-										<ui:msg key="register">Registrar</ui:msg>
-									</b:SubmitButton>
-									<b:Button ui:field="cancelButton">
-										<ui:msg key="cancelRegisterUser">Cancelar</ui:msg>
-									</b:Button>
-								</g:FlowPanel>
-							</b:FormGroup>
+								<b:FormGroup>
+									<g:FlowPanel addStyleNames="col-lg-offset-2 col-lg-10">
+										<b:SubmitButton ui:field="registerButton" type="PRIMARY">
+											<ui:msg key="register">Registrar</ui:msg>
+										</b:SubmitButton>
+										<b:Button ui:field="cancelButton">
+											<ui:msg key="cancelRegisterUser">Cancelar</ui:msg>
+										</b:Button>
+									</g:FlowPanel>
+								</b:FormGroup>
 
-						</b:FieldSet>
-					</b:Form>
+							</b:FieldSet>
+						</b:Form>
+					</g:FormPanel>
 					<b.html:Paragraph ui:field="textSendEmail">
 						<ui:msg key="textSendEmail">Gracias por registrarte en javaLeague.
 							Recibirás

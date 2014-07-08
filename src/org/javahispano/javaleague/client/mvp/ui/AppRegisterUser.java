@@ -31,7 +31,7 @@ public class AppRegisterUser extends Composite {
 	}
 
 	@UiField
-	FormPanel formRegisterUser;
+	FormPanel formPanelRegisterUser;
 	@UiField
 	TextBox userName;
 	@UiField
@@ -45,21 +45,37 @@ public class AppRegisterUser extends Composite {
 
 	public AppRegisterUser() {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		setUp();
 	}
 
-	@UiHandler("formRegisterUser")
-	void onValidate(SubmitEvent event) {
-		StringBuilder errors = new StringBuilder();
-	}
+	private void setUp() {
+	    // Add an event handler to the form.
+	    formPanelRegisterUser.addSubmitHandler(new FormPanel.SubmitHandler() {
+	      public void onSubmit(SubmitEvent event) {
+	        // This event is fired just before the form is submitted. We can take
+	        // this opportunity to perform validation.
+	        if (userName.getText().length() == 0) {
+	          Window.alert("The text box must not be empty");
+	          event.cancel();
+	        }
+	      }
+	    });
 
-	@UiHandler("formRegisterUser")
-	void onResults(SubmitCompleteEvent event) {
-		Window.alert(event.getResults());
+	    formPanelRegisterUser.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
+	      public void onSubmitComplete(SubmitCompleteEvent event) {
+	        // When the form submission is successfully completed, this event is
+	        // fired. Assuming the service returned a response of type text/html,
+	        // we can get the result text here (see the FormPanel documentation for
+	        // further explanation).
+	        Window.alert(event.getResults());
+	      }
+	    });		
 	}
-
+	
 	@UiHandler("registerButton")
 	void onRegister(ClickEvent event) {
-		formRegisterUser.submit();
+		formPanelRegisterUser.submit();
 	}
 
 }

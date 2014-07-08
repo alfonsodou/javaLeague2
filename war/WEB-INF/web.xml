@@ -14,6 +14,16 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- ===================== Register User Servlet ===================== -->
+	<servlet>
+		<servlet-name>register</servlet-name>
+		<servlet-class>org.javahispano.javaleague.server.servlets.RegisterUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>register</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+
 	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

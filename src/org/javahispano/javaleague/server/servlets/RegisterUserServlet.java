@@ -22,8 +22,9 @@ public class RegisterUserServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		resp.sendRedirect(req.getScheme() + "://" + req.getServerName()
-				+ req.getContextPath() + "#WelcomePlace");
+
+		resp.getWriter().println("OK");
+		resp.flushBuffer();
 
 	}
 

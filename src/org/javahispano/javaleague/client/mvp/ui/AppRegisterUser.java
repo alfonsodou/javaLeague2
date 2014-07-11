@@ -3,12 +3,17 @@
  */
 package org.javahispano.javaleague.client.mvp.ui;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.gwtbootstrap3.client.ui.Input;
 import org.gwtbootstrap3.client.ui.Label;
 import org.gwtbootstrap3.client.ui.TextBox;
 import org.gwtbootstrap3.client.ui.html.Paragraph;
 import org.javahispano.javaleague.client.ClientFactory;
 import org.javahispano.javaleague.client.mvp.places.WelcomePlace;
+import org.javahispano.javaleague.shared.proxy.AppUserProxy;
+import org.javahispano.javaleague.shared.service.AppUserService;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,6 +27,7 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 /**
  * @author adou
@@ -31,7 +37,7 @@ public class AppRegisterUser extends Composite {
 
 	private static AppRegisterUserUiBinder uiBinder = GWT
 			.create(AppRegisterUserUiBinder.class);
-	private ClientFactory clientFactory = GWT.create(ClientFactory.class);	
+	private ClientFactory clientFactory = GWT.create(ClientFactory.class);
 
 	interface AppRegisterUserUiBinder extends UiBinder<Widget, AppRegisterUser> {
 	}
@@ -71,7 +77,7 @@ public class AppRegisterUser extends Composite {
 
 	private void setUp() {
 		hideErrorLabel();
-		
+
 		// Add an event handler to the form.
 		formPanelRegisterUser.addSubmitHandler(new FormPanel.SubmitHandler() {
 			public void onSubmit(SubmitEvent event) {
@@ -80,12 +86,12 @@ public class AppRegisterUser extends Composite {
 					errorUserName.setVisible(true);
 					event.cancel();
 				}
-				
+
 				if (teamName.getText().length() == 0) {
 					errorTeamName.setVisible(true);
 					event.cancel();
 				}
-				
+
 				if (password.getText().length() < 4) {
 					errorPasswordSize.setVisible(true);
 					event.cancel();
@@ -116,7 +122,65 @@ public class AppRegisterUser extends Composite {
 
 	@UiHandler("registerButton")
 	void onRegister(ClickEvent event) {
-		formPanelRegisterUser.submit();
+		boolean error = false;
+
+		hideErrorLabel();
+
+		if (userName.getText().length() < 4) {
+			errorUserName.setVisible(true);
+			error = true;
+		}
+
+		if (teamName.getText().length() == 0) {
+			errorTeamName.setVisible(true);
+			error = true;
+		}
+
+		if (password.getText().length() < 4) {
+			errorPasswordSize.setVisible(true);
+			error = true;
+		}
+
+		if (!password.getText().equals(rePassword.getText())) {
+			errorPassword.setVisible(true);
+			error = true;
+		}
+
+		if (!error) {
+			MessageDigest crypt = null;
+
+			try {
+				crypt = java.security.MessageDigest.getInstance("MD5");
+			} catch (NoSuchAlgorithmException e) {
+				Window.alert("MD5 not supported");
+				return;
+			}
+
+			byte[] digested = crypt.digest(password.getValue().getBytes());
+
+			String crypt_password = new String();
+
+			// Converts bytes to string
+			for (byte b : digested)
+				crypt_password += Integer.toHexString(0xFF & b);
+
+			AppUserService appUserService = clientFactory.getRequestFactory()
+					.appUserService();
+			AppUserProxy appUser = appUserService.create(AppUserProxy.class);
+			appUser.setAppUserName(userName.getText());
+			appUser.setEmail(email.getValue());
+			appUser.setPassword(crypt_password);
+			
+			appUserService.save(appUser).fire(new Receiver<Void>() {
+				@Override
+				public void onSuccess(Void response) {
+					//GWT.log("Guardado OK!");
+					Window.alert("OK!!!");
+					
+				}
+			});
+		}
+		// formPanelRegisterUser.submit();
 	}
 
 	@UiHandler("cancelButton")
@@ -124,10 +188,10 @@ public class AppRegisterUser extends Composite {
 		hideErrorLabel();
 		goTo(new WelcomePlace());
 	}
-	
+
 	public void goTo(Place place) {
 		clientFactory.getPlaceController().goTo(place);
-	}	
+	}
 
 	/**
 	 * minimum email l@n.co

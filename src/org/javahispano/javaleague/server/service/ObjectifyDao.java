@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.javahispano.javaleague.shared.exception.TooManyResultsException;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;

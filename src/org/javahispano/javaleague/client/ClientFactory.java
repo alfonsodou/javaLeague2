@@ -3,8 +3,10 @@
  */
 package org.javahispano.javaleague.client;
 
+import org.javahispano.javaleague.client.mvp.AppPlacesHistoryMapper;
 import org.javahispano.javaleague.client.mvp.views.RegisterView;
 import org.javahispano.javaleague.client.mvp.views.WelcomeView;
+import org.javahispano.javaleague.shared.service.JavaLeagueRequestFactory;
 
 import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
@@ -18,6 +20,10 @@ public interface ClientFactory {
 
 	public PlaceController getPlaceController();
 
+	public JavaLeagueRequestFactory getRequestFactory();
+	
+	public AppPlacesHistoryMapper getHistoryMapper();
+	
 	WelcomeView getWelcomeView();
 
 	RegisterView getRegisterView();

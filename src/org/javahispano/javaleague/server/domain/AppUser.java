@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.javahispano.javaleague.domain;
+package org.javahispano.javaleague.server.domain;
 
 import java.util.logging.Logger;
 
@@ -18,6 +18,7 @@ public class AppUser extends DatastoreObject {
 
 	private String appUserName;
 	private String email;
+	private String password;
 	
 	public AppUser() {
 		
@@ -54,6 +55,20 @@ public class AppUser extends DatastoreObject {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	

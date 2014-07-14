@@ -91,7 +91,7 @@ public class AppRegisterUser extends Composite {
 			errorUserName.setVisible(true);
 			error = true;
 		}
-		
+
 		if (!checkEmail(email.getText())) {
 			errorEmail.setVisible(true);
 			error = true;
@@ -136,18 +136,20 @@ public class AppRegisterUser extends Composite {
 			appUser.setAppUserName(userName.getText());
 			appUser.setEmail(email.getValue());
 			appUser.setPassword(crypt_password);
-			
-			appUserService.save(appUser).fire(new Receiver<Void>() {
+
+			appUserService.newUser(appUser).fire(new Receiver<Boolean>() {
 				@Override
-				public void onSuccess(Void response) {
-					//GWT.log("Guardado OK!");
-					Window.alert("OK!!!");
-					formRegisterUser.reset();
-					
+				public void onSuccess(Boolean response) {
+					if (response == Boolean.TRUE) {
+						Window.alert("OK!!!");
+						formRegisterUser.reset();
+					} else {
+						errorRegisterEmail.setVisible(true);
+					}
+
 				}
 			});
 		}
-		// formPanelRegisterUser.submit();
 	}
 
 	@UiHandler("cancelButton")

@@ -6,6 +6,7 @@ package org.javahispano.javaleague.server.domain;
 import java.util.logging.Logger;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * @author adou
@@ -17,6 +18,7 @@ public class AppUser extends DatastoreObject {
 	private static final Logger log = Logger.getLogger(AppUser.class.getName());
 
 	private String appUserName;
+	@Index
 	private String email;
 	private String password;
 	

@@ -20,4 +20,6 @@ public interface AppUserService extends RequestContext {
 	Request<AppUserProxy> fetch(Long id);
 	Request<Void> save(AppUserProxy appUserProxy);
 	Request<Void> remove(Long id);
+	Request<AppUserProxy> findByEmail(String email);
+	Request<Boolean> newUser(AppUserProxy appUserProxy);
 }

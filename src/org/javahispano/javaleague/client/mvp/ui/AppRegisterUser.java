@@ -6,6 +6,7 @@ package org.javahispano.javaleague.client.mvp.ui;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.Form;
 import org.gwtbootstrap3.client.ui.Input;
 import org.gwtbootstrap3.client.ui.Label;
@@ -18,6 +19,7 @@ import org.javahispano.javaleague.shared.service.AppUserService;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -69,6 +71,10 @@ public class AppRegisterUser extends Composite {
 	Label errorRegisterEmail;
 	@UiField
 	Paragraph textSendEmail;
+	@UiField
+	Button registerButton;
+	@UiField
+	Button cancelButton;
 
 	public AppRegisterUser() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -79,10 +85,24 @@ public class AppRegisterUser extends Composite {
 	private void setUp() {
 		hideErrorLabel();
 		formRegisterUser.reset();
+
+		registerButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				checkForm();
+			}
+		});
+
+		cancelButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				hideErrorLabel();
+				formRegisterUser.reset();
+				goTo(new WelcomePlace());
+			}
+		});
+
 	}
 
-	@UiHandler("registerButton")
-	void onRegister(ClickEvent event) {
+	void checkForm() {
 		boolean error = false;
 
 		hideErrorLabel();
@@ -150,13 +170,6 @@ public class AppRegisterUser extends Composite {
 				}
 			});
 		}
-	}
-
-	@UiHandler("cancelButton")
-	void onClick(ClickEvent event) {
-		hideErrorLabel();
-		formRegisterUser.reset();
-		goTo(new WelcomePlace());
 	}
 
 	public void goTo(Place place) {

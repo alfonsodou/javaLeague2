@@ -15,6 +15,7 @@ import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -54,6 +55,10 @@ public class AppPublicMenuBar extends Composite {
 			} else if (Window.Location.getParameter("locale").equals("en")) {
 				locale.setText("English (en)");
 			}
+		} else {
+			if (Cookies.getCookie("locale") != null) {
+				changeLocale(Cookies.getCookie("locale"));
+			}
 		}
 
 		localeES.addClickHandler(new ClickHandler() {
@@ -82,6 +87,7 @@ public class AppPublicMenuBar extends Composite {
 		UrlBuilder newUrl = Window.Location.createUrlBuilder();
 		newUrl.setParameter("locale", localeToUse);
 		Window.Location.assign(newUrl.buildString());
+		Cookies.setCookie("locale", localeToUse);
 	}
 
 	public void goTo(Place place) {

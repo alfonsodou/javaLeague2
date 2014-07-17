@@ -15,8 +15,11 @@ import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.web.bindery.event.shared.EventBus;
@@ -56,6 +59,17 @@ public class JavaLeague implements EntryPoint {
 	}
 
 	private void bind() {
+/*		String locale = Cookies.getCookie("locale");
+		if (locale != null) {
+			if (locale.equals("es")) {
+				changeLocale("es");
+			} else {
+				if (locale.equals("en")) {
+					changeLocale("en");
+				}
+			}
+		}*/
+		
 		// Listen for AppBusy events on the event bus
 		eventBus.addHandler(AppBusyEvent.getType(), new AppBusyHandler() {
 			public void onAppBusyEvent(AppBusyEvent event) {
@@ -69,6 +83,13 @@ public class JavaLeague implements EntryPoint {
 				BusyIndicator.free();
 			}
 		});
+	}
+	
+	private void changeLocale(String localeToUse) {
+		UrlBuilder newUrl = Window.Location.createUrlBuilder();
+		newUrl.setParameter("locale", localeToUse);
+		Window.Location.assign(newUrl.buildString());
+		Cookies.setCookie("locale", localeToUse);
 	}
 
 	private String buildStackTrace(Throwable t, String log) {

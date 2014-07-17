@@ -55,10 +55,6 @@ public class AppPublicMenuBar extends Composite {
 			} else if (Window.Location.getParameter("locale").equals("en")) {
 				locale.setText("English (en)");
 			}
-		} else {
-			if (Cookies.getCookie("locale") != null) {
-				changeLocale(Cookies.getCookie("locale"));
-			}
 		}
 
 		localeES.addClickHandler(new ClickHandler() {

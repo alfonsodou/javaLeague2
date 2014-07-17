@@ -3,6 +3,7 @@
  */
 package org.javahispano.javaleague.server.domain;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 import com.googlecode.objectify.annotation.Entity;
@@ -21,14 +22,19 @@ public class AppUser extends DatastoreObject {
 	@Index
 	private String email;
 	private String password;
+	private String token;
+	private Date dateToken;
+	private String locale;
 	
 	public AppUser() {
+		this.locale = "es";
 		
 	}
 	
 	public AppUser(String appUserName, String email) {
 		this.appUserName = appUserName;
 		this.email = email;
+		this.locale = "es";
 	}
 
 	/**
@@ -71,6 +77,48 @@ public class AppUser extends DatastoreObject {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the token
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * @param token the token to set
+	 */
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	/**
+	 * @return the dateToken
+	 */
+	public Date getDateToken() {
+		return dateToken;
+	}
+
+	/**
+	 * @param dateToken the dateToken to set
+	 */
+	public void setDateToken(Date dateToken) {
+		this.dateToken = dateToken;
+	}
+
+	/**
+	 * @return the locale
+	 */
+	public String getLocale() {
+		return locale;
+	}
+
+	/**
+	 * @param locale the locale to set
+	 */
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
 	

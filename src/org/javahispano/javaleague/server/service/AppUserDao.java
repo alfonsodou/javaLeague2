@@ -70,7 +70,8 @@ public class AppUserDao extends ObjectifyDao<AppUser> {
 	public Boolean newUser(AppUser appUser) {
 		AppUser appUserTemp = null;
 		try {
-			appUserTemp = this.getByProperty("email", appUser.getEmail());
+			logger.warning("Buscando dirección de correo: " + appUser.getEmail());
+			appUserTemp = this.getByProperty2("email", appUser.getEmail());
 			if (appUserTemp == null) {
 				SessionIdentifierGenerator userTokenGenerator = new SessionIdentifierGenerator();
 				appUser.setDateToken(new Date());
@@ -100,9 +101,16 @@ public class AppUserDao extends ObjectifyDao<AppUser> {
 				} else {
 					msg.setText(writer.toString());
 				}
+				msg.setSentDate(new Date());
+				logger.warning(msg.getContentType());
+				logger.warning(msg.getDescription());
+				logger.warning(msg.getDisposition());
+				logger.warning(msg.getContent().toString());
 				Transport.send(msg);
 
 				return Boolean.TRUE;
+			} else {
+				logger.warning("Dirección de correo encontrada: " + appUserTemp.getAppUserName());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

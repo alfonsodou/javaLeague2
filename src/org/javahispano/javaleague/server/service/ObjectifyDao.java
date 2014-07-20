@@ -21,8 +21,6 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 
-
-
 /**
  * Generic DAO for use with Objectify
  * 
@@ -116,6 +114,11 @@ public class ObjectifyDao<T> {
 		return obj;
 	}
 
+	public T getByProperty2(String propName, Object propValue) {
+		return ofy().load().type(clazz).filter(propName, propValue).first()
+				.now();
+	}
+
 	public List<T> listByProperty(String propName, Object propValue) {
 		Query<T> q = ofy().load().type(clazz);
 		q.filter(propName, propValue);
@@ -148,8 +151,8 @@ public class ObjectifyDao<T> {
 	}
 
 	public Key<T> getKey(Long id) {
-		//return new Key<T>(id);
-		return null;	// ¿?¿?¿?¿?¿?¿?
+		// return new Key<T>(id);
+		return null; // ¿?¿?¿?¿?¿?¿?
 	}
 
 	public Key<T> key(T obj) {
@@ -197,19 +200,17 @@ public class ObjectifyDao<T> {
 	/*
 	 * Application-specific methods to retrieve items owned by a specific user
 	 */
-	
+
 	/*
-	public List<T> listAllForUser() {
-		Key<AppUser> userKey = new Key<AppUser>(AppUser.class, getCurrentUser()
-				.getId());
-		return listByProperty("owner", userKey);
-	}
-
-	private AppUser getCurrentUser() {
-		// return (AppUser) req.getAttribute("loggedInUser");
-		return (AppUser) RequestFactoryServlet.getThreadLocalRequest()
-				.getAttribute("loggedInUser");
-
-	}
-*/
+	 * public List<T> listAllForUser() { Key<AppUser> userKey = new
+	 * Key<AppUser>(AppUser.class, getCurrentUser() .getId()); return
+	 * listByProperty("owner", userKey); }
+	 * 
+	 * private AppUser getCurrentUser() { // return (AppUser)
+	 * req.getAttribute("loggedInUser"); return (AppUser)
+	 * RequestFactoryServlet.getThreadLocalRequest()
+	 * .getAttribute("loggedInUser");
+	 * 
+	 * }
+	 */
 }

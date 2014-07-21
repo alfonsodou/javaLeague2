@@ -82,11 +82,14 @@ public class AppUserDao extends ObjectifyDao<AppUser> {
 				context.put("username", appUser.getAppUserName());
 				context.put("url", appUser.getToken());
 				VelocityEngine ve = VelocityHelper.getVelocityEngine();
+				logger.warning("Despues de getVelocityEngine");
 				// Finds template in WEB-INF/classes
 				Template template = ve.getTemplate("emailTemplate_"
 						+ appUser.getLocale() + ".vm");
+				logger.warning("Despues de getTemplate");
 				StringWriter writer = new StringWriter();
 				template.merge(context, writer);
+				logger.warning("writer: " + writer.toString());
 				Properties props = new Properties();
 				Session session = Session.getDefaultInstance(props, null);
 

@@ -25,16 +25,34 @@ public class AppUser extends DatastoreObject {
 	private String token;
 	private Date dateToken;
 	private String locale;
+	private Date lastActive;
+	private boolean active;
+	private Date lastLoginOn;
 	
 	public AppUser() {
-		this.locale = "es";
-		
+		this.locale = "es";	
+		this.active = false;
 	}
 	
+	/**
+	 * @return the lastActive
+	 */
+	public Date getLastActive() {
+		return lastActive;
+	}
+
+	/**
+	 * @param lastActive the lastActive to set
+	 */
+	public void setLastActive(Date lastActive) {
+		this.lastActive = lastActive;
+	}
+
 	public AppUser(String appUserName, String email) {
 		this.appUserName = appUserName;
 		this.email = email;
 		this.locale = "es";
+		this.active = false;
 	}
 
 	/**
@@ -119,6 +137,34 @@ public class AppUser extends DatastoreObject {
 	 */
 	public void setLocale(String locale) {
 		this.locale = locale;
+	}
+
+	/**
+	 * @return the active
+	 */
+	public boolean isActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	/**
+	 * @return the lastLoginOn
+	 */
+	public Date getLastLoginOn() {
+		return lastLoginOn;
+	}
+
+	/**
+	 * @param lastLoginOn the lastLoginOn to set
+	 */
+	public void setLastLoginOn(Date lastLoginOn) {
+		this.lastLoginOn = lastLoginOn;
 	}
 
 	

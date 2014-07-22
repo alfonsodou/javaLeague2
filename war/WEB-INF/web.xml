@@ -13,7 +13,17 @@
 		<filter-name>ObjectifyFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	
+	<!-- ===================== AuthenticateUser Servlet ===================== -->
+	<servlet>
+		<servlet-name>AuthenticateUser</servlet-name>
+		<servlet-class>org.javahispano.javaleague.server.servlets.AuthenticateUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthenticateUser</servlet-name>
+		<url-pattern>/authenticateUser</url-pattern>
+	</servlet-mapping>
+	
 	<!-- ===================== RequestFactory Servlet ===================== -->
 	<servlet>
 		<servlet-name>requestFactoryServlet</servlet-name>

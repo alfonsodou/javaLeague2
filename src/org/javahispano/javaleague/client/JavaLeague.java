@@ -39,20 +39,6 @@ public class JavaLeague implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 
-		History.addValueChangeHandler(new ValueChangeHandler<String>() {
-			public void onValueChange(ValueChangeEvent<String> event) {
-				String historyToken = event.getValue();
-				if (historyToken.equals("en")) {
-					changeLocale("en");
-				} else {
-					if (historyToken.equals("es")) {
-						changeLocale("es");
-					}
-				}
-				 
-			}
-		});
-
 		ClientFactory clientFactory = GWT.create(ClientFactory.class);
 		eventBus = clientFactory.getEventBus();
 

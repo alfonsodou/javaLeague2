@@ -23,8 +23,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -86,6 +84,8 @@ public class AppRegisterUser extends Composite {
 	private void setUp() {
 		hideErrorLabel();
 		formRegisterUser.reset();
+		
+		userName.setFocus(true);
 
 		registerButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -160,18 +160,7 @@ public class AppRegisterUser extends Composite {
 
 			appUserService.newUser(appUser).fire(new Receiver<Boolean>() {
 				@Override
-				public void onSuccess(Boolean response) {
-					String locale = Cookies.getCookie("locale");
-					if (locale != null) {
-						if (locale.equals("es")) {
-							History.newItem("es");
-						} else {
-							if (locale.equals("en")) {
-								History.newItem("en");
-							}
-						}
-					}
-					
+				public void onSuccess(Boolean response) {				
 					if (response == Boolean.TRUE) {
 						Window.alert("OK!!!");
 						formRegisterUser.reset();

@@ -16,7 +16,10 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.javahispano.javaleague.server.domain.AppUser;
 import org.javahispano.javaleague.server.utils.SessionIdentifierGenerator;
 import org.javahispano.javaleague.server.utils.VelocityHelper;
@@ -70,7 +73,6 @@ public class AppUserDao extends ObjectifyDao<AppUser> {
 	public Boolean newUser(AppUser appUser) {
 		AppUser appUserTemp = null;
 		try {
-			logger.warning("Buscando dirección de correo: " + appUser.getEmail());
 			appUserTemp = this.getByProperty2("email", appUser.getEmail());
 			if (appUserTemp == null) {
 				SessionIdentifierGenerator userTokenGenerator = new SessionIdentifierGenerator();
@@ -81,15 +83,16 @@ public class AppUserDao extends ObjectifyDao<AppUser> {
 				VelocityContext context = new VelocityContext();
 				context.put("username", appUser.getAppUserName());
 				context.put("url", appUser.getToken());
+
 				VelocityEngine ve = VelocityHelper.getVelocityEngine();
-				logger.warning("Despues de getVelocityEngine");
+
 				// Finds template in WEB-INF/classes
 				Template template = ve.getTemplate("emailTemplate_"
 						+ appUser.getLocale() + ".vm");
-				logger.warning("Despues de getTemplate");
+
 				StringWriter writer = new StringWriter();
 				template.merge(context, writer);
-				logger.warning("writer: " + writer.toString());
+
 				Properties props = new Properties();
 				Session session = Session.getDefaultInstance(props, null);
 
@@ -99,21 +102,16 @@ public class AppUserDao extends ObjectifyDao<AppUser> {
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 						appUser.getEmail(), appUser.getAppUserName()));
 				msg.setSubject("Bienvenido a javaLeague!");
-				if (writer.toString().startsWith("<!DOCTYPE html")) {
-					msg.setContent(writer.toString(), "text/html");
-				} else {
-					msg.setText(writer.toString());
-				}
+
+				msg.setContent(writer.toString(), "text/html; charset=utf-8");
 				msg.setSentDate(new Date());
-				logger.warning(msg.getContentType());
-				logger.warning(msg.getDescription());
-				logger.warning(msg.getDisposition());
-				logger.warning(msg.getContent().toString());
+
 				Transport.send(msg);
 
 				return Boolean.TRUE;
 			} else {
-				logger.warning("Dirección de correo encontrada: " + appUserTemp.getAppUserName());
+				logger.warning("Dirección de correo encontrada: "
+						+ appUserTemp.getAppUserName());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

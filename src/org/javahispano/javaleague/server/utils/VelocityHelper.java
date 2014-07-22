@@ -14,11 +14,13 @@ import org.apache.velocity.app.VelocityEngine;
  * @author David Chandler
  */
 public class VelocityHelper {
-	private static VelocityEngine velocityEngine;
+	private static VelocityEngine velocityEngine = null;
 
 	public static VelocityEngine getVelocityEngine() {
-		if (velocityEngine == null)
+		if (velocityEngine == null) {
 			init();
+		}
+		
 		return velocityEngine;
 	}
 

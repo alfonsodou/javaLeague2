@@ -1,4 +1,3 @@
-
 package org.javahispano.javaleague.server.utils;
 
 /* 
@@ -25,50 +24,76 @@ import java.io.File;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+
 public class ServletUtils {
 
-  /**
-   * NOT UNIT TESTED Returns the URL (including query parameters) minus the scheme, host, and context path. This method probably
-   * be moved to a more general purpose class.
-   */
-  public static String getRelativeUrl(HttpServletRequest request) {
+	/**
+	 * NOT UNIT TESTED Returns the URL (including query parameters) minus the
+	 * scheme, host, and context path. This method probably be moved to a more
+	 * general purpose class.
+	 */
+	public static String getRelativeUrl(HttpServletRequest request) {
 
-    String baseUrl = null;
+		String baseUrl = null;
 
-    if ((request.getServerPort() == 80) || (request.getServerPort() == 443))
-      baseUrl = request.getScheme() + "://" + request.getServerName() + request.getContextPath();
-    else
-      baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-          + request.getContextPath();
+		if ((request.getServerPort() == 80) || (request.getServerPort() == 443))
+			baseUrl = request.getScheme() + "://" + request.getServerName()
+					+ request.getContextPath();
+		else
+			baseUrl = request.getScheme() + "://" + request.getServerName()
+					+ ":" + request.getServerPort() + request.getContextPath();
 
-    StringBuffer buf = request.getRequestURL();
+		StringBuffer buf = request.getRequestURL();
 
-    if (request.getQueryString() != null) {
-      buf.append("?");
-      buf.append(request.getQueryString());
-    }
+		if (request.getQueryString() != null) {
+			buf.append("?");
+			buf.append(request.getQueryString());
+		}
 
-    return buf.substring(baseUrl.length());
-  }
+		return buf.substring(baseUrl.length());
+	}
 
-  /**
-   * NOT UNIT TESTED Returns the base url (e.g, <tt>http://myhost:8080/myapp</tt>) suitable for using in a base tag or building
-   * reliable urls.
-   */
-  public static String getBaseUrl(HttpServletRequest request) {
-    if ((request.getServerPort() == 80) || (request.getServerPort() == 443))
-      return request.getScheme() + "://" + request.getServerName() + request.getContextPath();
-    else
-      return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-          + request.getContextPath();
-  }
+	/**
+	 * NOT UNIT TESTED Returns the base url (e.g,
+	 * <tt>http://myhost:8080/myapp</tt>) suitable for using in a base tag or
+	 * building reliable urls.
+	 */
+	public static String getBaseUrl(HttpServletRequest request) {
+		if ((request.getServerPort() == 80) || (request.getServerPort() == 443))
+			return request.getScheme() + "://" + request.getServerName()
+					+ request.getContextPath();
+		else
+			return request.getScheme() + "://" + request.getServerName() + ":"
+					+ request.getServerPort() + request.getContextPath();
+	}
 
-  /**
-   * Returns the file specified by <tt>path</tt> as returned by <tt>ServletContext.getRealPath()</tt>.
-   */
-  public static File getRealFile(HttpServletRequest request, String path) {
+	/**
+	 * Returns the file specified by <tt>path</tt> as returned by
+	 * <tt>ServletContext.getRealPath()</tt>.
+	 */
+	public static File getRealFile(HttpServletRequest request, String path) {
 
-    return new File(request.getSession().getServletContext().getRealPath(path));
-  }
+		return new File(request.getSession().getServletContext()
+				.getRealPath(path));
+	}
+
+	public static String getBaseUrl() {
+		String hostUrl;
+		String environment = System
+				.getProperty("com.google.appengine.runtime.environment");
+		if (StringUtils.equals("Production", environment)) {
+			String applicationId = System
+					.getProperty("com.google.appengine.application.id");
+			String version = System
+					.getProperty("com.google.appengine.application.version");
+			hostUrl = "http://" + version + "." + applicationId
+					+ ".appspot.com/";
+		} else {
+			hostUrl = "http://localhost:8888";
+		}
+		
+		return hostUrl;
+	}
 
 }

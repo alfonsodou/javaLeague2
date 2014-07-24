@@ -10,10 +10,15 @@ import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.Form;
 import org.gwtbootstrap3.client.ui.Input;
 import org.gwtbootstrap3.client.ui.Label;
+import org.gwtbootstrap3.client.ui.Modal;
+import org.gwtbootstrap3.client.ui.ModalBody;
+import org.gwtbootstrap3.client.ui.ModalFooter;
 import org.gwtbootstrap3.client.ui.TextBox;
 import org.gwtbootstrap3.client.ui.html.Paragraph;
+import org.gwtbootstrap3.client.ui.html.Span;
 import org.javahispano.javaleague.client.ClientFactory;
 import org.javahispano.javaleague.client.mvp.places.WelcomePlace;
+import org.javahispano.javaleague.client.resources.messages.AppRegisterUserMessages;
 import org.javahispano.javaleague.shared.proxy.AppUserProxy;
 import org.javahispano.javaleague.shared.service.AppUserService;
 
@@ -38,6 +43,8 @@ public class AppRegisterUser extends Composite {
 	private static AppRegisterUserUiBinder uiBinder = GWT
 			.create(AppRegisterUserUiBinder.class);
 	private ClientFactory clientFactory = GWT.create(ClientFactory.class);
+	private AppRegisterUserMessages appRegisterUserMessages = GWT
+			.create(AppRegisterUserMessages.class);
 
 	interface AppRegisterUserUiBinder extends UiBinder<Widget, AppRegisterUser> {
 	}
@@ -84,7 +91,7 @@ public class AppRegisterUser extends Composite {
 	private void setUp() {
 		hideErrorLabel();
 		formRegisterUser.reset();
-		
+
 		userName.setFocus(true);
 
 		registerButton.addClickHandler(new ClickHandler() {
@@ -158,16 +165,38 @@ public class AppRegisterUser extends Composite {
 			appUser.setEmail(email.getValue());
 			appUser.setPassword(crypt_password);
 
+			registerButton.setEnabled(false);
 			appUserService.newUser(appUser).fire(new Receiver<Boolean>() {
 				@Override
-				public void onSuccess(Boolean response) {				
+				public void onSuccess(Boolean response) {
 					if (response == Boolean.TRUE) {
-						Window.alert("OK!!!");
+						final Modal modal = new Modal();
+						modal.setTitle(appRegisterUserMessages
+								.captionAppRegisterUser());
+						modal.setClosable(true);
+
+						final ModalBody modalBody = new ModalBody();
+						modalBody.add(new Span(appRegisterUserMessages
+								.okMessage()));
+
+						final ModalFooter modalFooter = new ModalFooter();
+						modalFooter.add(new Button(appRegisterUserMessages
+								.okButton(), new ClickHandler() {
+							@Override
+							public void onClick(final ClickEvent event) {
+								modal.hide();
+							}
+						}));
+						modal.add(modalBody);
+						modal.add(modalFooter);
+
+						modal.show();
+						
 						formRegisterUser.reset();
 					} else {
 						errorRegisterEmail.setVisible(true);
 					}
-
+					registerButton.setEnabled(true);
 				}
 			});
 		}

@@ -18,6 +18,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.javahispano.javaleague.server.domain.AppUser;
+import org.javahispano.javaleague.server.utils.ServletUtils;
 import org.javahispano.javaleague.server.utils.SessionIdentifierGenerator;
 import org.javahispano.javaleague.server.utils.VelocityHelper;
 import org.javahispano.javaleague.shared.exception.TooManyResultsException;
@@ -79,9 +80,9 @@ public class AppUserDao extends ObjectifyDao<AppUser> {
 
 				VelocityContext context = new VelocityContext();
 				context.put("username", appUser.getAppUserName());
-				context.put("url",
-						"http://javaleaguebeta.appspot.com/authenticateUser?token="
-								+ appUser.getToken() + "?email=" + appUser.getEmail());
+				context.put("url", ServletUtils.getBaseUrl()
+						+ "/authenticateUser?token=" + appUser.getToken()
+						+ "&email=" + appUser.getEmail());
 
 				VelocityEngine ve = VelocityHelper.getVelocityEngine();
 

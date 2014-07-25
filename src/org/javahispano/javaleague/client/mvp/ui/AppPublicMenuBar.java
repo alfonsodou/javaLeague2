@@ -3,6 +3,8 @@
  */
 package org.javahispano.javaleague.client.mvp.ui;
 
+import java.util.Date;
+
 import org.gwtbootstrap3.client.ui.AnchorButton;
 import org.javahispano.javaleague.client.ClientFactory;
 import org.javahispano.javaleague.client.mvp.places.RegisterPlace;
@@ -12,6 +14,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.http.client.UrlBuilder;
+import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -49,25 +52,27 @@ public class AppPublicMenuBar extends Composite {
 	}
 
 	private void setUp() {
-		if (Window.Location.getParameter("locale") != null) {
-			if (Window.Location.getParameter("locale").equals("es")) {
-				locale.setText("Español (es)");
-			} else if (Window.Location.getParameter("locale").equals("en")) {
-				locale.setText("English (en)");
-			}
-		}
+		String localeCookie = getLocaleCookie();
+		if (localeCookie.equals("es"))
+			locale.setText("Español (es)");
+		else if (localeCookie.equals("en"))
+			locale.setText("English (en)");
 
 		localeES.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				GWT.log("AppPublicMenuBar: select locale ES");
-				changeLocale("es");
+				// changeLocale("es");
+				locale.setText("Español (es)");
+				setLocaleCookie("es");
 			}
 		});
 
 		localeEN.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				GWT.log("AppPublicMenuBar: select locale EN");
-				changeLocale("en");
+				// changeLocale("en");
+				locale.setText("English (en)");
+				setLocaleCookie("en");
 			}
 		});
 
@@ -79,11 +84,30 @@ public class AppPublicMenuBar extends Composite {
 		});
 	}
 
-	private void changeLocale(String localeToUse) {
-		UrlBuilder newUrl = Window.Location.createUrlBuilder();
-		newUrl.setParameter("locale", localeToUse);
-		Window.Location.assign(newUrl.buildString());
-		Cookies.setCookie("locale", localeToUse);
+	private void setLocaleCookie(String locale) {
+		String cookie = getLocaleCookie();
+		boolean control = false;
+
+		if (cookie.equals(locale))
+			control = true;
+		else
+			control = false;
+
+		final String cookieName = LocaleInfo.getLocaleCookieName();
+		if (cookieName != null) {
+			Date expires = new Date();
+			expires.setTime(expires.getTime() + (1000 * 60 * 60 * 24 * 21));
+			Cookies.setCookie(cookieName, locale, expires);
+		}
+
+		if (!control) {
+			com.google.gwt.user.client.Window.Location.reload();
+		}
+	}
+
+	private String getLocaleCookie() {
+		final String cookieName = LocaleInfo.getLocaleCookieName();
+		return Cookies.getCookie(cookieName);
 	}
 
 	public void goTo(Place place) {

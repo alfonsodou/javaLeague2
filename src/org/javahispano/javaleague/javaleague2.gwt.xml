@@ -30,6 +30,8 @@
 	<!-- English language, independent of country -->
 	<extend-property name="locale" values="en" />
 	<set-property-fallback name="locale" value="es" />
+	<set-configuration-property name="locale.cookie"
+		value="GWT_LOCALE" />
 
 	<!-- Use ClientFactoryImpl by default -->
 	<replace-with class="org.javahispano.javaleague.client.ClientFactoryImpl">

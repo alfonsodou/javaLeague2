@@ -23,6 +23,8 @@ import org.javahispano.javaleague.shared.proxy.AppUserProxy;
 import org.javahispano.javaleague.shared.service.AppUserService;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.place.shared.Place;
@@ -92,7 +94,12 @@ public class AppRegisterUser extends Composite {
 		hideErrorLabel();
 		formRegisterUser.reset();
 
-		userName.setFocus(true);
+		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+			@Override
+			public void execute() {
+				userName.setFocus(true);
+			}
+		});
 
 		registerButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -169,6 +176,7 @@ public class AppRegisterUser extends Composite {
 			appUserService.newUser(appUser).fire(new Receiver<Boolean>() {
 				@Override
 				public void onSuccess(Boolean response) {
+
 					if (response == Boolean.TRUE) {
 						final Modal modal = new Modal();
 						modal.setTitle(appRegisterUserMessages
@@ -191,12 +199,15 @@ public class AppRegisterUser extends Composite {
 						modal.add(modalFooter);
 
 						modal.show();
-						
+
 						formRegisterUser.reset();
+
+						goTo(new WelcomePlace());
 					} else {
 						errorRegisterEmail.setVisible(true);
 					}
 					registerButton.setEnabled(true);
+
 				}
 			});
 		}
@@ -245,4 +256,5 @@ public class AppRegisterUser extends Composite {
 		errorRegisterEmail.setVisible(false);
 		textSendEmail.setVisible(false);
 	}
+
 }

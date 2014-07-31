@@ -56,7 +56,8 @@ public class AuthenticateUserServlet extends HttpServlet {
 						+ "/authuser.jsp");
 
 			} else {
-				resp.sendRedirect(LoginHelper.getApplicationURL(req));
+				resp.sendRedirect(LoginHelper.getApplicationURL(req)
+						+ "/errorauthuser.jsp");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

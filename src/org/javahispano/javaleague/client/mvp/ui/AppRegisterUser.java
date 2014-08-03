@@ -176,6 +176,7 @@ public class AppRegisterUser extends Composite {
 			appUserService.newUser(appUser).fire(new Receiver<Boolean>() {
 				@Override
 				public void onSuccess(Boolean response) {
+					Window.alert("Vuelta newUser! :: response: " + response);
 
 					if (response == Boolean.TRUE) {
 						final Modal modal = new Modal();

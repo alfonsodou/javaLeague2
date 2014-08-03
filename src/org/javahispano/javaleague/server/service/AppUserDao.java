@@ -5,6 +5,7 @@ package org.javahispano.javaleague.server.service;
 
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -68,11 +69,18 @@ public class AppUserDao extends ObjectifyDao<AppUser> {
 		return appUser;
 	}
 
+	public List<AppUser> getAuthUser(Boolean active) {
+		return this.listByProperty("active", active);
+	}
+	
 	public Boolean newUser(AppUser appUser) {
 		AppUser appUserTemp = null;
 		try {
+			logger.warning("Dentro de newUser!");
 			appUserTemp = this.getByProperty2("email", appUser.getEmail());
+			logger.warning("Despues de buscar email");
 			if (appUserTemp == null) {
+				logger.warning("appuser no encontrado!");
 				SessionIdentifierGenerator userTokenGenerator = new SessionIdentifierGenerator();
 				appUser.setDateToken(new Date());
 				appUser.setToken(userTokenGenerator.nextSessionId());
